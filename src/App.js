@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm';
 import BlogForm from './components/BlogForm';
 import LoggedIn from './components/LoggedIn';
 import Notification from './components/Notification';
+import Togglable from './components/Togglable';
 import blogService from './services/blogs';
 import loginService from './services/login';
 
@@ -167,27 +168,31 @@ function App() {
   return (
     <div>
       {user === null && (
-        <LoginForm
-          handleLogin={handleLogin}
-          username={username}
-          handleUsernameChange={handleUsernameChange}
-          password={password}
-          handlePasswordChange={handlePasswordChange}
-        ></LoginForm>
+        <Togglable buttonLabel="Log in">
+          <LoginForm
+            handleLogin={handleLogin}
+            username={username}
+            handleUsernameChange={handleUsernameChange}
+            password={password}
+            handlePasswordChange={handlePasswordChange}
+          ></LoginForm>
+        </Togglable>
       )}
 
       {user !== null && (
         <>
           <LoggedIn user={user} handleButton={handleLogoutBtn}></LoggedIn>
-          <BlogForm
-            addBlog={addBlog}
-            blogTitle={newTitle}
-            handleBlogTitle={handleBlogTitle}
-            author={newAuthor}
-            handleAuthor={handleAuthor}
-            url={newUrl}
-            handleUrl={handleUrl}
-          ></BlogForm>
+          <Togglable buttonLabel="Add a note">
+            <BlogForm
+              addBlog={addBlog}
+              blogTitle={newTitle}
+              handleBlogTitle={handleBlogTitle}
+              author={newAuthor}
+              handleAuthor={handleAuthor}
+              url={newUrl}
+              handleUrl={handleUrl}
+            ></BlogForm>
+          </Togglable>
         </>
       )}
       <Notification message={message} />
